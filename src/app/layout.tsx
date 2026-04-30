@@ -17,6 +17,9 @@ export const metadata: Metadata = {
     statusBarStyle: 'default',
     title: '이달의 기록',
   },
+  icons: {
+    apple: '/icons/icon-192.png',
+  },
 }
 
 export const viewport: Viewport = {
