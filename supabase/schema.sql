@@ -2,7 +2,7 @@
 CREATE SCHEMA IF NOT EXISTS app_monthly_archive;
 
 -- entries 테이블
-CREATE TABLE app_monthly_archive.entries (
+CREATE TABLE IF NOT EXISTS app_monthly_archive.entries (
   id            uuid PRIMARY KEY DEFAULT gen_random_uuid(),
   year_month    char(7) NOT NULL,
   category      text NOT NULL CHECK (category IN (
@@ -28,22 +28,25 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
+DROP TRIGGER IF EXISTS entries_updated_at ON app_monthly_archive.entries;
 CREATE TRIGGER entries_updated_at
   BEFORE UPDATE ON app_monthly_archive.entries
   FOR EACH ROW EXECUTE FUNCTION app_monthly_archive.update_updated_at();
 
--- RLS 활성화 (서버 사이드 Service Role Key로만 접근)
+-- RLS 활성화
 ALTER TABLE app_monthly_archive.entries ENABLE ROW LEVEL SECURITY;
 
 -- 퍼블릭 접근 차단
+DROP POLICY IF EXISTS "deny_all" ON app_monthly_archive.entries;
 CREATE POLICY "deny_all" ON app_monthly_archive.entries FOR ALL TO public USING (false);
 
--- Storage 버킷 생성 (storage는 Supabase 내장 스키마, 변경 없음)
+-- Storage 버킷 생성
 INSERT INTO storage.buckets (id, name, public)
 VALUES ('entry-images', 'entry-images', true)
 ON CONFLICT DO NOTHING;
 
 -- Storage 퍼블릭 읽기 허용
+DROP POLICY IF EXISTS "public_read" ON storage.objects;
 CREATE POLICY "public_read" ON storage.objects
   FOR SELECT TO public
   USING (bucket_id = 'entry-images');
