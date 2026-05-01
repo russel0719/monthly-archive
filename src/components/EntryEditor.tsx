@@ -13,7 +13,6 @@ interface LinkPreview {
 }
 
 interface Props {
-  uuid: string
   yearMonth: string
   category: string
   categoryDef: Category
@@ -22,7 +21,6 @@ interface Props {
 }
 
 export default function EntryEditor({
-  uuid,
   yearMonth,
   category,
   categoryDef,
@@ -138,7 +136,7 @@ export default function EntryEditor({
           body: JSON.stringify({ yearMonth, category }),
         })
         if (!res.ok) throw new Error('Delete failed')
-        router.push(`/${uuid}/${yearMonth}`)
+        router.push(`/${yearMonth}`)
         router.refresh()
       } catch {
         setError('삭제에 실패했어요.')
@@ -156,7 +154,7 @@ export default function EntryEditor({
       return (
         <div className="mt-16 text-center">
           <p className="text-4xl">📭</p>
-          <p className="mt-4 text-sm text-gray-400 dark:text-gray-500">기록이 없어요</p>
+          <p className="mt-4 text-sm text-text-disabled">기록이 없어요</p>
         </div>
       )
     }
@@ -174,14 +172,14 @@ export default function EntryEditor({
           <LinkPreviewCard preview={linkPreview} url={linkUrl} />
         )}
         {textContent && (
-          <p className="whitespace-pre-wrap leading-relaxed text-gray-700 dark:text-gray-300">
+          <p className="whitespace-pre-wrap leading-relaxed text-text-primary">
             {textContent}
           </p>
         )}
         {memo && (
-          <div className="rounded-xl bg-gray-50 p-4 dark:bg-gray-800/50">
-            <p className="text-xs font-medium text-gray-400 dark:text-gray-500 mb-1">메모</p>
-            <p className="text-sm leading-relaxed text-gray-600 dark:text-gray-400">{memo}</p>
+          <div className="rounded-xl bg-bg-secondary p-4 dark:bg-bg-tertiary">
+            <p className="text-xs font-medium text-text-disabled mb-1">메모</p>
+            <p className="text-sm leading-relaxed text-text-secondary">{memo}</p>
           </div>
         )}
       </div>
@@ -190,11 +188,10 @@ export default function EntryEditor({
 
   return (
     <div className="space-y-6">
-      {/* 이미지 업로드 */}
       {hasImage && (
         <div>
-          <label className="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300">
-            사진 <span className="font-normal text-gray-400">최대 3장</span>
+          <label className="mb-2 block text-sm font-medium text-text-primary">
+            사진 <span className="font-normal text-text-disabled">최대 3장</span>
           </label>
           <div className="grid grid-cols-3 gap-2">
             {imageUrls.map((url, i) => (
@@ -203,7 +200,8 @@ export default function EntryEditor({
                 <img src={url} alt="" className="h-full w-full object-cover" />
                 <button
                   onClick={() => removeImage(i)}
-                  className="absolute right-1 top-1 flex h-6 w-6 items-center justify-center rounded-full bg-black/60 text-white text-xs hover:bg-black/80"
+                  className="absolute right-1 top-1 flex h-6 w-6 items-center justify-center rounded-full
+                             bg-black/60 text-white text-xs transition-opacity duration-150 active:opacity-60"
                 >
                   ×
                 </button>
@@ -213,10 +211,13 @@ export default function EntryEditor({
               <button
                 onClick={() => fileInputRef.current?.click()}
                 disabled={uploadingIndex !== null}
-                className="flex aspect-square items-center justify-center rounded-xl border-2 border-dashed border-gray-200 bg-gray-50 text-2xl transition-colors hover:border-gray-300 hover:bg-white disabled:opacity-50 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700"
+                className="flex aspect-square items-center justify-center rounded-xl border-2 border-dashed
+                           border-gray-200 bg-bg-secondary text-2xl transition-all duration-150
+                           active:opacity-80 active:scale-[0.98]
+                           disabled:opacity-50 dark:border-gray-700 dark:bg-bg-tertiary"
               >
                 {uploadingIndex !== null ? (
-                  <span className="text-xs text-gray-400">업로드 중...</span>
+                  <span className="text-xs text-text-disabled">업로드 중...</span>
                 ) : (
                   '+'
                 )}
@@ -234,10 +235,9 @@ export default function EntryEditor({
         </div>
       )}
 
-      {/* 링크 입력 */}
       {hasLink && (
         <div>
-          <label className="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300">
+          <label className="mb-2 block text-sm font-medium text-text-primary">
             링크
           </label>
           <input
@@ -249,10 +249,12 @@ export default function EntryEditor({
             }}
             onBlur={() => fetchLinkPreview(linkUrl)}
             placeholder="https://"
-            className="w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm outline-none transition-colors focus:border-gray-400 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-100 dark:focus:border-gray-500"
+            className="w-full h-[44px] rounded-[10px] border border-gray-200 bg-bg-primary px-4 text-sm
+                       outline-none transition-colors focus:border-accent
+                       dark:border-gray-700 dark:bg-bg-primary dark:text-text-primary"
           />
           {isFetchingPreview && (
-            <p className="mt-2 text-xs text-gray-400">미리보기 불러오는 중...</p>
+            <p className="mt-2 text-xs text-text-disabled">미리보기 불러오는 중...</p>
           )}
           {linkPreview && !isFetchingPreview && (
             <div className="mt-2">
@@ -262,10 +264,9 @@ export default function EntryEditor({
         </div>
       )}
 
-      {/* 텍스트 입력 */}
       {hasText && (
         <div>
-          <label className="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300">
+          <label className="mb-2 block text-sm font-medium text-text-primary">
             내용
           </label>
           <textarea
@@ -273,39 +274,42 @@ export default function EntryEditor({
             onChange={(e) => setTextContent(e.target.value)}
             placeholder={categoryDef.placeholder}
             rows={4}
-            className="w-full resize-none rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm leading-relaxed outline-none transition-colors focus:border-gray-400 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-100 dark:focus:border-gray-500"
+            className="w-full resize-none rounded-[10px] border border-gray-200 bg-bg-primary px-4 py-3
+                       text-sm leading-relaxed outline-none transition-colors focus:border-accent
+                       dark:border-gray-700 dark:bg-bg-primary dark:text-text-primary"
           />
         </div>
       )}
 
-      {/* 메모 */}
       <div>
-        <label className="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300">
+        <label className="mb-2 block text-sm font-medium text-text-primary">
           메모{' '}
-          <span className="font-normal text-gray-400">선택 · {memo.length}/500</span>
+          <span className="font-normal text-text-disabled">선택 · {memo.length}/500</span>
         </label>
         <textarea
           value={memo}
           onChange={(e) => setMemo(e.target.value.slice(0, 500))}
           placeholder="자유롭게 메모를 남겨보세요"
           rows={3}
-          className="w-full resize-none rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm leading-relaxed outline-none transition-colors focus:border-gray-400 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-100 dark:focus:border-gray-500"
+          className="w-full resize-none rounded-[10px] border border-gray-200 bg-bg-primary px-4 py-3
+                     text-sm leading-relaxed outline-none transition-colors focus:border-accent
+                     dark:border-gray-700 dark:bg-bg-primary dark:text-text-primary"
         />
       </div>
 
-      {/* 에러 */}
       {error && (
         <p className="rounded-xl bg-red-50 px-4 py-3 text-sm text-red-600 dark:bg-red-900/20 dark:text-red-400">
           {error}
         </p>
       )}
 
-      {/* 버튼 */}
       <div className="flex gap-3">
         <button
           onClick={handleSave}
           disabled={isPending}
-          className="flex-1 rounded-xl bg-gray-900 py-3.5 text-sm font-semibold text-white transition-all hover:bg-gray-700 disabled:opacity-50 dark:bg-gray-100 dark:text-gray-900 dark:hover:bg-gray-300"
+          className="flex-1 h-[44px] rounded-full bg-accent text-sm font-semibold text-white
+                     transition-all duration-150 active:opacity-80 active:scale-[0.98]
+                     disabled:opacity-50"
         >
           {isPending ? '저장 중...' : saved ? '✓ 저장됨' : '저장하기'}
         </button>
@@ -313,7 +317,9 @@ export default function EntryEditor({
           <button
             onClick={handleDelete}
             disabled={isPending}
-            className="rounded-xl border border-gray-200 px-4 py-3.5 text-sm text-gray-500 transition-colors hover:border-red-200 hover:text-red-500 disabled:opacity-50 dark:border-gray-700 dark:text-gray-400"
+            className="h-[44px] rounded-full border border-gray-200 px-4 text-sm text-text-secondary
+                       transition-all duration-150 active:opacity-80 active:scale-[0.98]
+                       disabled:opacity-50 dark:border-gray-700"
           >
             삭제
           </button>
@@ -329,7 +335,9 @@ function LinkPreviewCard({ preview, url }: { preview: LinkPreview; url: string }
       href={url}
       target="_blank"
       rel="noopener noreferrer"
-      className="flex overflow-hidden rounded-xl border border-gray-200 bg-white transition-shadow hover:shadow-md dark:border-gray-700 dark:bg-gray-800"
+      className="flex overflow-hidden rounded-xl border border-gray-200 bg-bg-primary
+                 transition-all duration-150 active:opacity-80
+                 dark:border-gray-700 dark:bg-bg-primary"
     >
       {preview.image && (
         // eslint-disable-next-line @next/next/no-img-element
@@ -341,16 +349,16 @@ function LinkPreviewCard({ preview, url }: { preview: LinkPreview; url: string }
       )}
       <div className="flex min-w-0 flex-col justify-center px-3 py-2">
         {preview.title && (
-          <p className="truncate text-sm font-medium text-gray-900 dark:text-gray-100">
+          <p className="truncate text-sm font-medium text-text-primary">
             {preview.title}
           </p>
         )}
         {preview.description && (
-          <p className="mt-0.5 line-clamp-2 text-xs text-gray-500 dark:text-gray-400">
+          <p className="mt-0.5 line-clamp-2 text-xs text-text-secondary">
             {preview.description}
           </p>
         )}
-        <p className="mt-1 truncate text-xs text-gray-400 dark:text-gray-500">
+        <p className="mt-1 truncate text-xs text-text-disabled">
           {url}
         </p>
       </div>

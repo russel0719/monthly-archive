@@ -8,9 +8,9 @@ import type { Entry } from '@/lib/supabase'
 export default async function CategoryPage({
   params,
 }: {
-  params: Promise<{ uuid: string; yearMonth: string; category: string }>
+  params: Promise<{ yearMonth: string; category: string }>
 }) {
-  const { uuid, yearMonth, category } = await params
+  const { yearMonth, category } = await params
   const categoryDef = getCategoryById(category)
   if (!categoryDef) notFound()
 
@@ -24,20 +24,20 @@ export default async function CategoryPage({
   }
 
   return (
-    <div className="mx-auto min-h-screen max-w-[480px] px-4 pb-24">
+    <div className="mx-auto min-h-screen max-w-[640px] px-4 pb-[60px]">
       <header className="pb-6 pt-8">
         <div className="flex items-center gap-3">
           <a
-            href={`/${uuid}/${yearMonth}`}
-            className="text-gray-400 hover:text-gray-600 dark:text-gray-500 dark:hover:text-gray-300"
+            href={`/${yearMonth}`}
+            className="text-text-disabled transition-opacity duration-150 active:opacity-60"
           >
             ←
           </a>
           <div>
-            <p className="text-xs font-medium uppercase tracking-widest text-gray-400 dark:text-gray-500">
+            <p className="text-xs font-medium uppercase tracking-widest text-text-disabled">
               {formatYearMonth(yearMonth)}
             </p>
-            <h1 className="mt-1 flex items-center gap-2 text-2xl font-bold text-gray-900 dark:text-gray-100">
+            <h1 className="mt-1 flex items-center gap-2 text-2xl font-bold text-text-primary">
               <span>{categoryDef.emoji}</span>
               <span>이달의 {categoryDef.label}</span>
             </h1>
@@ -49,7 +49,6 @@ export default async function CategoryPage({
       </header>
 
       <EntryEditor
-        uuid={uuid}
         yearMonth={yearMonth}
         category={category}
         categoryDef={categoryDef}

@@ -7,6 +7,9 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const svgPath = join(__dirname, '../public/icons/icon.svg');
 const svgBuffer = readFileSync(svgPath);
 
+await sharp(svgBuffer).resize(180, 180).png().toFile(join(__dirname, '../public/icons/icon-180.png'));
+console.log('icon-180.png generated');
+
 await sharp(svgBuffer).resize(192, 192).png().toFile(join(__dirname, '../public/icons/icon-192.png'));
 console.log('icon-192.png generated');
 

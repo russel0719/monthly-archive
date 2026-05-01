@@ -1,28 +1,69 @@
 @import "tailwindcss";
 
+/* ── Design Tokens ─────────────────────────────────── */
 :root {
-  --background: #f9fafb;
-  --foreground: #111827;
+  /* Background */
+  --bg-primary:   #ffffff;
+  --bg-secondary: #f9fafb;
+  --bg-tertiary:  #f3f4f6;
+
+  /* Text */
+  --text-primary:   #111827;
+  --text-secondary: #6b7280;
+  --text-disabled:  #9ca3af;
+
+  /* Accent */
+  --accent:       #2563eb;
+  --accent-hover: #1d4ed8;
+
+  /* Border */
+  --border: #e5e7eb;
+
+  /* Semantic */
+  --color-success: #16a34a;
+  --color-warning: #f59e0b;
+  --color-error:   #dc2626;
+
+  /* Legacy aliases */
+  --background: var(--bg-secondary);
+  --foreground:  var(--text-primary);
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-background:     var(--background);
+  --color-foreground:     var(--foreground);
+  --color-bg-primary:     var(--bg-primary);
+  --color-bg-secondary:   var(--bg-secondary);
+  --color-bg-tertiary:    var(--bg-tertiary);
+  --color-text-primary:   var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-disabled:  var(--text-disabled);
+  --color-accent:         var(--accent);
+  --color-border:         var(--border);
+  --color-success:        var(--color-success);
+  --color-warning:        var(--color-warning);
+  --color-error:          var(--color-error);
+  --font-sans: system-ui, 'Inter', -apple-system, sans-serif;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #f9fafb;
+    --bg-primary:    #0b0b0c;
+    --bg-secondary:  #111113;
+    --bg-tertiary:   #1a1a1c;
+    --text-primary:  #f9fafb;
+    --text-secondary: #9ca3af;
+    --text-disabled: #6b7280;
+    --border: #374151;
+    --background: var(--bg-primary);
+    --foreground:  var(--text-primary);
   }
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-geist-sans), system-ui, -apple-system, sans-serif;
+  font-family: system-ui, 'Inter', -apple-system, sans-serif;
   -webkit-font-smoothing: antialiased;
 }
 

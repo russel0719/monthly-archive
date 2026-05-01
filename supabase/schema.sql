@@ -1,5 +1,8 @@
+-- 애플리케이션 스키마 생성
+CREATE SCHEMA IF NOT EXISTS app_monthly_archive;
+
 -- entries 테이블
-CREATE TABLE entries (
+CREATE TABLE app_monthly_archive.entries (
   id            uuid PRIMARY KEY DEFAULT gen_random_uuid(),
   year_month    char(7) NOT NULL,
   category      text NOT NULL CHECK (category IN (
@@ -17,7 +20,7 @@ CREATE TABLE entries (
 );
 
 -- updated_at 자동 갱신 트리거
-CREATE OR REPLACE FUNCTION update_updated_at()
+CREATE OR REPLACE FUNCTION app_monthly_archive.update_updated_at()
 RETURNS TRIGGER AS $$
 BEGIN
   NEW.updated_at = now();
@@ -26,16 +29,16 @@ END;
 $$ LANGUAGE plpgsql;
 
 CREATE TRIGGER entries_updated_at
-  BEFORE UPDATE ON entries
-  FOR EACH ROW EXECUTE FUNCTION update_updated_at();
+  BEFORE UPDATE ON app_monthly_archive.entries
+  FOR EACH ROW EXECUTE FUNCTION app_monthly_archive.update_updated_at();
 
 -- RLS 활성화 (서버 사이드 Service Role Key로만 접근)
-ALTER TABLE entries ENABLE ROW LEVEL SECURITY;
+ALTER TABLE app_monthly_archive.entries ENABLE ROW LEVEL SECURITY;
 
--- 퍼블릭 접근 차단 (API 라우트에서 service role key 사용)
-CREATE POLICY "deny_all" ON entries FOR ALL TO public USING (false);
+-- 퍼블릭 접근 차단
+CREATE POLICY "deny_all" ON app_monthly_archive.entries FOR ALL TO public USING (false);
 
--- Storage 버킷 생성 (Supabase 대시보드 또는 아래 SQL 실행)
+-- Storage 버킷 생성 (storage는 Supabase 내장 스키마, 변경 없음)
 INSERT INTO storage.buckets (id, name, public)
 VALUES ('entry-images', 'entry-images', true)
 ON CONFLICT DO NOTHING;
