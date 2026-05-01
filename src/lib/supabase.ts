@@ -1,7 +1,5 @@
 import { createClient } from '@supabase/supabase-js'
-import { createBrowserClient } from '@supabase/ssr'
-import { createServerClient } from '@supabase/ssr'
-import { cookies } from 'next/headers'
+import { createBrowserClient, createServerClient } from '@supabase/ssr'
 
 export interface Entry {
   id: string
@@ -39,6 +37,7 @@ export function createSupabaseBrowserClient() {
 }
 
 export async function createSupabaseServerClient() {
+  const { cookies } = await import('next/headers')
   const cookieStore = await cookies()
   return createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
