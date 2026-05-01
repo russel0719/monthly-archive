@@ -1,6 +1,18 @@
 -- 애플리케이션 스키마 생성
 CREATE SCHEMA IF NOT EXISTS app_monthly_archive;
 
+-- 스키마 권한 부여 (Supabase 커스텀 스키마 필수)
+GRANT USAGE ON SCHEMA app_monthly_archive TO anon, authenticated, service_role;
+GRANT ALL ON ALL TABLES IN SCHEMA app_monthly_archive TO anon, authenticated, service_role;
+GRANT ALL ON ALL ROUTINES IN SCHEMA app_monthly_archive TO anon, authenticated, service_role;
+GRANT ALL ON ALL SEQUENCES IN SCHEMA app_monthly_archive TO anon, authenticated, service_role;
+ALTER DEFAULT PRIVILEGES FOR ROLE postgres IN SCHEMA app_monthly_archive
+  GRANT ALL ON TABLES TO anon, authenticated, service_role;
+ALTER DEFAULT PRIVILEGES FOR ROLE postgres IN SCHEMA app_monthly_archive
+  GRANT ALL ON ROUTINES TO anon, authenticated, service_role;
+ALTER DEFAULT PRIVILEGES FOR ROLE postgres IN SCHEMA app_monthly_archive
+  GRANT ALL ON SEQUENCES TO anon, authenticated, service_role;
+
 -- entries 테이블
 CREATE TABLE IF NOT EXISTS app_monthly_archive.entries (
   id            uuid PRIMARY KEY DEFAULT gen_random_uuid(),
