@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import { getEntriesByMonth } from '@/lib/supabase'
 import { CATEGORIES } from '@/lib/categories'
-import { formatYearMonth, isCurrentMonth } from '@/lib/utils'
+import { formatYearMonth, isEditableMonth } from '@/lib/utils'
 import type { Entry } from '@/lib/supabase'
 
 function CategoryCard({
@@ -78,7 +78,7 @@ export default async function MonthPage({
   params: Promise<{ yearMonth: string }>
 }) {
   const { yearMonth } = await params
-  const readOnly = !isCurrentMonth(yearMonth)
+  const readOnly = !isEditableMonth(yearMonth)
 
   let entries: Entry[] = []
   try {
@@ -109,7 +109,7 @@ export default async function MonthPage({
           </span>
         </div>
         {readOnly && (
-          <p className="mt-2 text-xs text-amber-600 dark:text-amber-400">읽기 전용 — 지난 달 기록</p>
+          <p className="mt-2 text-xs text-amber-600 dark:text-amber-400">읽기 전용 — 2달 이상 지난 기록</p>
         )}
       </header>
 
