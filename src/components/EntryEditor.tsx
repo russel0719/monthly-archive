@@ -177,7 +177,7 @@ export default function EntryEditor({
           </p>
         )}
         {memo && (
-          <div className="rounded-xl bg-bg-secondary p-4 dark:bg-bg-tertiary">
+          <div className="rounded-xl bg-bg-secondary p-4">
             <p className="text-xs font-medium text-text-disabled mb-1">메모</p>
             <p className="text-sm leading-relaxed text-text-secondary">{memo}</p>
           </div>
@@ -213,8 +213,7 @@ export default function EntryEditor({
                 disabled={uploadingIndex !== null}
                 className="flex aspect-square items-center justify-center rounded-xl border-2 border-dashed
                            border-gray-200 bg-bg-secondary text-2xl transition-all duration-150
-                           active:opacity-80 active:scale-[0.98]
-                           disabled:opacity-50 dark:border-gray-700 dark:bg-bg-tertiary"
+                           active:opacity-80 active:scale-[0.98] disabled:opacity-50"
               >
                 {uploadingIndex !== null ? (
                   <span className="text-xs text-text-disabled">업로드 중...</span>
@@ -250,8 +249,7 @@ export default function EntryEditor({
             onBlur={() => fetchLinkPreview(linkUrl)}
             placeholder="https://"
             className="w-full h-[44px] rounded-[10px] border border-gray-200 bg-bg-primary px-4 text-sm
-                       outline-none transition-colors focus:border-accent
-                       dark:border-gray-700 dark:bg-bg-primary dark:text-text-primary"
+                       outline-none transition-colors focus:border-accent"
           />
           {isFetchingPreview && (
             <p className="mt-2 text-xs text-text-disabled">미리보기 불러오는 중...</p>
@@ -275,8 +273,7 @@ export default function EntryEditor({
             placeholder={categoryDef.placeholder}
             rows={4}
             className="w-full resize-none rounded-[10px] border border-gray-200 bg-bg-primary px-4 py-3
-                       text-sm leading-relaxed outline-none transition-colors focus:border-accent
-                       dark:border-gray-700 dark:bg-bg-primary dark:text-text-primary"
+                       text-sm leading-relaxed outline-none transition-colors focus:border-accent"
           />
         </div>
       )}
@@ -292,13 +289,12 @@ export default function EntryEditor({
           placeholder="자유롭게 메모를 남겨보세요"
           rows={3}
           className="w-full resize-none rounded-[10px] border border-gray-200 bg-bg-primary px-4 py-3
-                     text-sm leading-relaxed outline-none transition-colors focus:border-accent
-                     dark:border-gray-700 dark:bg-bg-primary dark:text-text-primary"
+                     text-sm leading-relaxed outline-none transition-colors focus:border-accent"
         />
       </div>
 
       {error && (
-        <p className="rounded-xl bg-red-50 px-4 py-3 text-sm text-red-600 dark:bg-red-900/20 dark:text-red-400">
+        <p className="rounded-xl bg-red-50 px-4 py-3 text-sm text-red-600">
           {error}
         </p>
       )}
@@ -319,7 +315,7 @@ export default function EntryEditor({
             disabled={isPending}
             className="h-[44px] rounded-full border border-gray-200 px-4 text-sm text-text-secondary
                        transition-all duration-150 active:opacity-80 active:scale-[0.98]
-                       disabled:opacity-50 dark:border-gray-700"
+                       disabled:opacity-50"
           >
             삭제
           </button>
@@ -336,8 +332,7 @@ function LinkPreviewCard({ preview, url }: { preview: LinkPreview; url: string }
       target="_blank"
       rel="noopener noreferrer"
       className="flex overflow-hidden rounded-xl border border-gray-200 bg-bg-primary
-                 transition-all duration-150 active:opacity-80
-                 dark:border-gray-700 dark:bg-bg-primary"
+                 transition-all duration-150 active:opacity-80"
     >
       {preview.image && (
         // eslint-disable-next-line @next/next/no-img-element

@@ -46,19 +46,6 @@
   --font-sans: system-ui, 'Inter', -apple-system, sans-serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --bg-primary:    #0b0b0c;
-    --bg-secondary:  #111113;
-    --bg-tertiary:   #1a1a1c;
-    --text-primary:  #f9fafb;
-    --text-secondary: #9ca3af;
-    --text-disabled: #6b7280;
-    --border: #374151;
-    --background: var(--bg-primary);
-    --foreground:  var(--text-primary);
-  }
-}
 
 body {
   background: var(--background);

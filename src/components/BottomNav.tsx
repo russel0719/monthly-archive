@@ -28,8 +28,7 @@ export default function BottomNav() {
 
   return (
     <nav
-      className="fixed bottom-0 left-0 right-0 z-50 h-[60px] border-t border-border
-                  bg-bg-primary dark:bg-bg-primary"
+      className="fixed bottom-0 left-0 right-0 z-50 h-[60px] border-t border-border bg-bg-primary"
     >
       <div className="mx-auto flex h-full max-w-[640px] items-center justify-around px-4">
         {NAV_ITEMS.map((item) => (

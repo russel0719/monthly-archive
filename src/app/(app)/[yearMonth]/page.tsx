@@ -24,10 +24,10 @@ function CategoryCard({
       href={readOnly && !hasContent ? '#' : href}
       className={`flex flex-col rounded-xl border p-4 transition-all duration-150
         ${hasContent
-          ? 'border-gray-200 bg-bg-primary dark:border-gray-700 dark:bg-bg-primary active:opacity-80 active:scale-[0.98]'
+          ? 'border-gray-200 bg-bg-primary active:opacity-80 active:scale-[0.98]'
           : readOnly
-          ? 'border-dashed border-gray-200 bg-bg-secondary opacity-50 cursor-default dark:border-gray-700 dark:bg-bg-tertiary'
-          : 'border-dashed border-gray-200 bg-bg-secondary dark:border-gray-700 dark:bg-bg-tertiary active:opacity-80 active:scale-[0.98]'
+          ? 'border-dashed border-gray-200 bg-bg-secondary opacity-50 cursor-default'
+          : 'border-dashed border-gray-200 bg-bg-secondary active:opacity-80 active:scale-[0.98]'
         }`}
       onClick={readOnly && !hasContent ? (e) => e.preventDefault() : undefined}
     >
@@ -38,7 +38,7 @@ function CategoryCard({
         )}
       </div>
 
-      <p className="mb-2 text-sm font-semibold text-text-primary dark:text-text-primary">
+      <p className="mb-2 text-sm font-semibold text-text-primary">
         {category.label}
       </p>
 
@@ -94,7 +94,7 @@ export default async function MonthPage({
 
   return (
     <div className="mx-auto min-h-screen max-w-[640px] px-4 pb-[60px]">
-      <header className="sticky top-0 z-10 bg-bg-primary pb-4 pt-8 dark:bg-bg-primary">
+      <header className="sticky top-0 z-10 bg-bg-primary pb-4 pt-8">
         <div className="flex items-center justify-between">
           <div>
             <p className="text-xs font-medium uppercase tracking-widest text-text-disabled">
@@ -109,7 +109,7 @@ export default async function MonthPage({
           </span>
         </div>
         {readOnly && (
-          <p className="mt-2 text-xs text-amber-600 dark:text-amber-400">읽기 전용 — 2달 이상 지난 기록</p>
+          <p className="mt-2 text-xs text-amber-600">읽기 전용 — 2달 이상 지난 기록</p>
         )}
       </header>
 

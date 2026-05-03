@@ -44,7 +44,7 @@ export default async function CategoryPage({
           </div>
         </div>
         {readOnly && (
-          <p className="mt-3 text-xs text-amber-600 dark:text-amber-400">읽기 전용 — 2달 이상 지난 기록</p>
+          <p className="mt-3 text-xs text-amber-600">읽기 전용 — 2달 이상 지난 기록</p>
         )}
       </header>
 

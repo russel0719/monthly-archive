@@ -20,10 +20,7 @@ export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
   maximumScale: 1,
-  themeColor: [
-    { media: '(prefers-color-scheme: light)', color: '#f9fafb' },
-    { media: '(prefers-color-scheme: dark)', color: '#0b0b0c' },
-  ],
+  themeColor: '#f9fafb',
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

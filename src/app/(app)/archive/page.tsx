@@ -58,8 +58,7 @@ async function ArchiveItem({ yearMonth }: { yearMonth: string }) {
     <Link
       href={`/${yearMonth}`}
       className="flex items-center justify-between rounded-xl border border-gray-200 bg-bg-primary p-5
-                 transition-all duration-150 active:opacity-80 active:scale-[0.98]
-                 dark:border-gray-700 dark:bg-bg-primary"
+                 transition-all duration-150 active:opacity-80 active:scale-[0.98]"
     >
       <div>
         <p className="font-semibold text-text-primary">
@@ -70,7 +69,7 @@ async function ArchiveItem({ yearMonth }: { yearMonth: string }) {
         </p>
       </div>
       <div className="flex items-center gap-2">
-        <div className="h-1.5 w-16 overflow-hidden rounded-full bg-bg-tertiary dark:bg-bg-tertiary">
+        <div className="h-1.5 w-16 overflow-hidden rounded-full bg-bg-tertiary">
           <div
             className="h-full rounded-full bg-accent"
             style={{ width: `${(filledCount / CATEGORIES.length) * 100}%` }}
