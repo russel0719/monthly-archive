@@ -1,7 +1,7 @@
 import { notFound } from 'next/navigation'
 import { getEntry } from '@/lib/supabase'
 import { getCategoryById } from '@/lib/categories'
-import { isCurrentMonth, formatYearMonth } from '@/lib/utils'
+import { isEditableMonth, formatYearMonth } from '@/lib/utils'
 import EntryEditor from '@/components/EntryEditor'
 import type { Entry } from '@/lib/supabase'
 
@@ -14,7 +14,7 @@ export default async function CategoryPage({
   const categoryDef = getCategoryById(category)
   if (!categoryDef) notFound()
 
-  const readOnly = !isCurrentMonth(yearMonth)
+  const readOnly = !isEditableMonth(yearMonth)
 
   let entry: Entry | null = null
   try {
@@ -44,7 +44,7 @@ export default async function CategoryPage({
           </div>
         </div>
         {readOnly && (
-          <p className="mt-3 text-xs text-amber-600 dark:text-amber-400">읽기 전용 — 지난 달 기록</p>
+          <p className="mt-3 text-xs text-amber-600 dark:text-amber-400">읽기 전용 — 2달 이상 지난 기록</p>
         )}
       </header>
 
