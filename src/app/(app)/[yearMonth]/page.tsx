@@ -24,15 +24,15 @@ function CategoryCard({
       href={readOnly && !hasContent ? '#' : href}
       className={`flex flex-col rounded-xl border p-4 transition-all duration-150
         ${hasContent
-          ? 'border-gray-200 bg-bg-primary active:opacity-80 active:scale-[0.98]'
+          ? 'border-gray-300 border-l-2 border-l-accent bg-bg-primary active:opacity-80 active:scale-[0.98]'
           : readOnly
-          ? 'border-dashed border-gray-200 bg-bg-secondary opacity-50 cursor-default'
-          : 'border-dashed border-gray-200 bg-bg-secondary active:opacity-80 active:scale-[0.98]'
+          ? 'border-dashed border-gray-300 bg-bg-secondary opacity-50 cursor-default'
+          : 'border-dashed border-gray-300 bg-bg-secondary active:opacity-80 active:scale-[0.98]'
         }`}
       onClick={readOnly && !hasContent ? (e) => e.preventDefault() : undefined}
     >
       <div className="mb-3 flex items-center justify-between">
-        <span className="text-2xl">{category.emoji}</span>
+        <span className={hasContent ? 'text-accent' : 'text-text-secondary'}>{category.icon}</span>
         {!readOnly && !hasContent && (
           <span className="text-xs text-text-disabled">+ 기록하기</span>
         )}
@@ -94,8 +94,8 @@ export default async function MonthPage({
 
   return (
     <div className="mx-auto min-h-screen max-w-[640px] px-4 pb-[60px]">
-      <header className="sticky top-0 z-10 bg-bg-primary pb-4 pt-8">
-        <div className="flex items-center justify-between">
+      <header className="sticky top-0 z-10 bg-bg-primary pb-4 pt-8 border-b border-border mb-3">
+        <div className="flex items-center justify-between pl-2">
           <div>
             <p className="text-xs font-medium uppercase tracking-widest text-text-disabled">
               이달의 기록
@@ -107,6 +107,12 @@ export default async function MonthPage({
           <span className="text-sm text-text-disabled">
             {filledCount}/{CATEGORIES.length}
           </span>
+        </div>
+        <div className="mt-3 h-0.5 w-full overflow-hidden rounded-full bg-bg-tertiary">
+          <div
+            className="h-full rounded-full bg-accent transition-all duration-300"
+            style={{ width: `${(filledCount / CATEGORIES.length) * 100}%` }}
+          />
         </div>
         {readOnly && (
           <p className="mt-2 text-xs text-amber-600">읽기 전용 — 2달 이상 지난 기록</p>

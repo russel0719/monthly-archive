@@ -22,7 +22,7 @@ export default function LoginPage() {
         </p>
         <button
           onClick={handleGoogleLogin}
-          className="w-full h-[44px] rounded-full bg-accent text-white text-sm font-semibold
+          className="w-full h-[44px] rounded-full bg-accent text-text-primary text-sm font-semibold
                      transition-all duration-150 active:opacity-80 active:scale-[0.98]"
         >
           Google로 계속하기

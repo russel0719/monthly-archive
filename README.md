@@ -11,7 +11,7 @@
 - **미디어 지원**: 카테고리별로 텍스트 / 이미지(최대 3장) / 링크 입력 가능
 - **링크 OG 프리뷰**: URL 입력 시 제목·이미지·파비콘 자동 미리보기
 - **아카이브 뷰**: 지난 달 기록을 목록으로 탐색하고 읽기 전용으로 열람
-- **다크 모드**: 시스템 설정 자동 감지
+- **편집 범위**: 이번 달 + 지난 달 편집 가능, 2달 이상 이전은 읽기 전용
 - **PWA**: 홈 화면 앱 설치, 앱 아이콘, 스플래시 지원
 - **Google 로그인**: Supabase Auth + Google OAuth
 
@@ -31,20 +31,52 @@
 
 ---
 
+## 디자인 시스템
+
+### 컬러 토큰
+
+| 토큰 | 값 | 용도 |
+|---|---|---|
+| `--bg-primary` | `#ffffff` | 카드, 헤더, 입력창 배경 |
+| `--bg-secondary` | `#f0f2f6` | 페이지 배경, 빈 카드 |
+| `--bg-tertiary` | `#e4e7ee` | 프로그레스 바 트랙, 비활성 영역 |
+| `--text-primary` | `#111827` | 본문 텍스트 |
+| `--text-secondary` | `#6b7280` | 보조 텍스트 |
+| `--text-disabled` | `#9ca3af` | 비활성 텍스트, 플레이스홀더 |
+| `--accent` | `#7dd3fc` | 포인트 색상 (파스텔 하늘색) |
+| `--accent-hover` | `#38bdf8` | 호버/활성 상태 |
+| `--border` | `#d1d5db` | 기본 테두리 |
+
+### Accent 색상 적용 위치
+
+- 채워진 카테고리 카드: 왼쪽 세로 accent 선 + 아이콘 하늘색
+- 월별 헤더 하단: 완성도 프로그레스 바
+- 카테고리 상세 페이지 헤더 아이콘
+- 하단 네비게이션 활성 탭 (텍스트 + dot indicator)
+- 저장 버튼, 로그인 버튼 배경
+- 입력 필드 포커스 테두리
+
+### 아이콘
+
+카테고리 아이콘과 하단 네비게이션 아이콘 모두 인라인 SVG로 구현 (flat 스타일, strokeWidth 1.75).  
+`src/lib/categories.tsx`에서 각 카테고리의 `icon: ReactNode` 필드로 관리.
+
+---
+
 ## 카테고리 목록
 
 | # | 카테고리 | 지원 미디어 |
 |---|---|---|
-| 1 | 📷 사진 | 이미지 |
-| 2 | 🎵 노래 | 링크, 텍스트 |
-| 3 | 🎯 목표 | 텍스트 |
-| 4 | ✍️ 문장 | 텍스트 |
-| 5 | 🍽️ 맛집 | 텍스트, 이미지, 링크 |
-| 6 | 📍 장소 | 텍스트, 이미지 |
-| 7 | 🛍️ 소비 | 텍스트, 이미지, 링크 |
-| 8 | 🎬 영화/드라마 | 텍스트, 이미지, 링크 |
-| 9 | 🔍 발견 | 텍스트, 링크 |
-| 10 | 🙏 감사한 것 | 텍스트 |
+| 1 | 사진 | 이미지 |
+| 2 | 노래 | 링크, 텍스트 |
+| 3 | 목표 | 텍스트 |
+| 4 | 문장 | 텍스트 |
+| 5 | 맛집 | 텍스트, 이미지, 링크 |
+| 6 | 장소 | 텍스트, 이미지 |
+| 7 | 소비 | 텍스트, 이미지, 링크 |
+| 8 | 영화/드라마 | 텍스트, 이미지, 링크 |
+| 9 | 발견 | 텍스트, 링크 |
+| 10 | 감사한 것 | 텍스트 |
 
 모든 카테고리에 공통 메모 필드 제공 (최대 500자).
 
@@ -85,21 +117,24 @@ src/
 │   ├── login/page.tsx              # 로그인 페이지
 │   └── page.tsx                    # 루트 → 이번 달로 리다이렉트
 ├── components/
-│   ├── BottomNav.tsx               # 하단 네비게이션
+│   ├── BottomNav.tsx               # 하단 네비게이션 (SVG 아이콘)
 │   ├── EntryEditor.tsx             # 카테고리 편집 폼
 │   └── ServiceWorkerRegistrar.tsx  # PWA SW 등록
 └── lib/
-    ├── categories.ts               # 카테고리 정의 및 타입
+    ├── categories.tsx              # 카테고리 정의, SVG 아이콘, 타입
     ├── supabase.ts                 # Supabase 클라이언트 + DB 함수
     └── utils.ts                    # 날짜 포맷 유틸
 
 supabase/
 └── schema.sql                      # DB 스키마 (멱등성 보장)
 
+scripts/
+└── generate-icons.mjs              # SVG → PWA PNG 아이콘 + favicon.ico 생성
+
 public/
 ├── manifest.json                   # PWA 매니페스트
 ├── sw.js                           # Service Worker
-└── icons/                          # PWA 아이콘 (180, 192, 512px)
+└── icons/                          # PWA 아이콘 (icon.svg, 180/192/512px PNG)
 ```
 
 ---
@@ -156,6 +191,16 @@ npm run dev
 
 `http://localhost:3000` 접속 후 Google 로그인.
 
+### 아이콘 재생성
+
+`public/icons/icon.svg` 수정 후 아래 스크립트 실행:
+
+```bash
+node scripts/generate-icons.mjs
+```
+
+PWA 아이콘(180/192/512px PNG)과 `src/app/favicon.ico`가 자동 생성된다.
+
 ### Supabase 설정
 
 1. Supabase 대시보드 → SQL 에디터에서 `supabase/schema.sql` 실행
@@ -178,7 +223,7 @@ npm run dev
 
 - **Google OAuth**: 인증된 사용자만 접근 가능
 - **미들웨어**: 비로그인 상태에서 `/login`으로 자동 리다이렉트
-- **편집 제한**: 현재 달 및 지난 달만 편집 가능, 2달 이상 이전은 읽기 전용
+- **편집 범위**: 이번 달 + 지난 달 편집 가능, 2달 이상 이전은 읽기 전용
 
 ---
 
@@ -193,6 +238,6 @@ npm run dev
 ## 비기능 요구사항
 
 - **반응형**: 모바일(~480px) 우선, 최대 너비 640px
-- **다크 모드**: `prefers-color-scheme` 자동 감지, Tailwind `dark:` 클래스
+- **라이트 모드 전용**: 다크 모드 미지원
 - **PWA**: 홈 화면 설치, 오프라인 캐시
 - **이미지 최적화**: Supabase CDN URL 직접 사용

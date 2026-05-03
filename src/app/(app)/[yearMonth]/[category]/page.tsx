@@ -25,7 +25,7 @@ export default async function CategoryPage({
 
   return (
     <div className="mx-auto min-h-screen max-w-[640px] px-4 pb-[60px]">
-      <header className="pb-6 pt-8">
+      <header className="pb-6 pt-8 pl-2">
         <div className="flex items-center gap-3">
           <a
             href={`/${yearMonth}`}
@@ -38,7 +38,7 @@ export default async function CategoryPage({
               {formatYearMonth(yearMonth)}
             </p>
             <h1 className="mt-1 flex items-center gap-2 text-2xl font-bold text-text-primary">
-              <span>{categoryDef.emoji}</span>
+              <span className="text-accent">{categoryDef.icon}</span>
               <span>이달의 {categoryDef.label}</span>
             </h1>
           </div>

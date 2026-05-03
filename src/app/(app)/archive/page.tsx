@@ -17,7 +17,7 @@ export default async function ArchivePage() {
 
   return (
     <div className="mx-auto min-h-screen max-w-[640px] px-4 pb-[60px]">
-      <header className="pb-4 pt-8">
+      <header className="pb-4 pt-8 pl-2">
         <p className="text-xs font-medium uppercase tracking-widest text-text-disabled">
           아카이브
         </p>
@@ -57,7 +57,7 @@ async function ArchiveItem({ yearMonth }: { yearMonth: string }) {
   return (
     <Link
       href={`/${yearMonth}`}
-      className="flex items-center justify-between rounded-xl border border-gray-200 bg-bg-primary p-5
+      className="flex items-center justify-between rounded-xl border border-gray-300 bg-bg-primary p-5
                  transition-all duration-150 active:opacity-80 active:scale-[0.98]"
     >
       <div>

@@ -4,8 +4,8 @@
 :root {
   /* Background */
   --bg-primary:   #ffffff;
-  --bg-secondary: #f9fafb;
-  --bg-tertiary:  #f3f4f6;
+  --bg-secondary: #f0f2f6;
+  --bg-tertiary:  #e4e7ee;
 
   /* Text */
   --text-primary:   #111827;
@@ -13,11 +13,11 @@
   --text-disabled:  #9ca3af;
 
   /* Accent */
-  --accent:       #2563eb;
-  --accent-hover: #1d4ed8;
+  --accent:       #7dd3fc;
+  --accent-hover: #38bdf8;
 
   /* Border */
-  --border: #e5e7eb;
+  --border: #d1d5db;
 
   /* Semantic */
   --color-success: #16a34a;

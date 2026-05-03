@@ -212,7 +212,7 @@ export default function EntryEditor({
                 onClick={() => fileInputRef.current?.click()}
                 disabled={uploadingIndex !== null}
                 className="flex aspect-square items-center justify-center rounded-xl border-2 border-dashed
-                           border-gray-200 bg-bg-secondary text-2xl transition-all duration-150
+                           border-gray-300 bg-bg-secondary text-2xl transition-all duration-150
                            active:opacity-80 active:scale-[0.98] disabled:opacity-50"
               >
                 {uploadingIndex !== null ? (
@@ -248,7 +248,7 @@ export default function EntryEditor({
             }}
             onBlur={() => fetchLinkPreview(linkUrl)}
             placeholder="https://"
-            className="w-full h-[44px] rounded-[10px] border border-gray-200 bg-bg-primary px-4 text-sm
+            className="w-full h-[44px] rounded-[10px] border border-gray-300 bg-bg-primary px-4 text-sm
                        outline-none transition-colors focus:border-accent"
           />
           {isFetchingPreview && (
@@ -272,7 +272,7 @@ export default function EntryEditor({
             onChange={(e) => setTextContent(e.target.value)}
             placeholder={categoryDef.placeholder}
             rows={4}
-            className="w-full resize-none rounded-[10px] border border-gray-200 bg-bg-primary px-4 py-3
+            className="w-full resize-none rounded-[10px] border border-gray-300 bg-bg-primary px-4 py-3
                        text-sm leading-relaxed outline-none transition-colors focus:border-accent"
           />
         </div>
@@ -288,7 +288,7 @@ export default function EntryEditor({
           onChange={(e) => setMemo(e.target.value.slice(0, 500))}
           placeholder="자유롭게 메모를 남겨보세요"
           rows={3}
-          className="w-full resize-none rounded-[10px] border border-gray-200 bg-bg-primary px-4 py-3
+          className="w-full resize-none rounded-[10px] border border-gray-300 bg-bg-primary px-4 py-3
                      text-sm leading-relaxed outline-none transition-colors focus:border-accent"
         />
       </div>
@@ -303,7 +303,7 @@ export default function EntryEditor({
         <button
           onClick={handleSave}
           disabled={isPending}
-          className="flex-1 h-[44px] rounded-full bg-accent text-sm font-semibold text-white
+          className="flex-1 h-[44px] rounded-full bg-accent text-sm font-semibold text-text-primary
                      transition-all duration-150 active:opacity-80 active:scale-[0.98]
                      disabled:opacity-50"
         >
@@ -313,7 +313,7 @@ export default function EntryEditor({
           <button
             onClick={handleDelete}
             disabled={isPending}
-            className="h-[44px] rounded-full border border-gray-200 px-4 text-sm text-text-secondary
+            className="h-[44px] rounded-full border border-gray-300 px-4 text-sm text-text-secondary
                        transition-all duration-150 active:opacity-80 active:scale-[0.98]
                        disabled:opacity-50"
           >
@@ -331,7 +331,7 @@ function LinkPreviewCard({ preview, url }: { preview: LinkPreview; url: string }
       href={url}
       target="_blank"
       rel="noopener noreferrer"
-      className="flex overflow-hidden rounded-xl border border-gray-200 bg-bg-primary
+      className="flex overflow-hidden rounded-xl border border-gray-300 bg-bg-primary
                  transition-all duration-150 active:opacity-80"
     >
       {preview.image && (

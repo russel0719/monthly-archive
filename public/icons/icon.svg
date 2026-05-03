@@ -1,39 +1,29 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
-  <!-- Background (maskable safe zone: content within 80% = 410px center) -->
-  <rect width="512" height="512" rx="0" fill="#111827"/>
+  <!-- Sky blue background -->
+  <rect width="512" height="512" fill="#0ea5e9"/>
 
-  <!-- Calendar card -->
-  <rect x="72" y="108" width="368" height="296" rx="20" fill="white"/>
+  <!-- White calendar card -->
+  <rect x="80" y="108" width="352" height="300" rx="28" fill="white"/>
 
-  <!-- Calendar header bar (dark) -->
-  <rect x="72" y="108" width="368" height="88" rx="20" fill="#111827"/>
-  <rect x="72" y="176" width="368" height="20" fill="#111827"/>
+  <!-- Sky-300 header bar (rounded top only via two overlapping rects) -->
+  <rect x="80" y="108" width="352" height="80" rx="28" fill="#7dd3fc"/>
+  <rect x="80" y="160" width="352" height="28" fill="#7dd3fc"/>
 
-  <!-- Ring binders -->
-  <circle cx="172" cy="108" r="20" fill="#111827" stroke="white" stroke-width="9"/>
-  <circle cx="340" cy="108" r="20" fill="#111827" stroke="white" stroke-width="9"/>
+  <!-- Header: three month-nav dots -->
+  <circle cx="216" cy="148" r="9" fill="white" fill-opacity="0.45"/>
+  <circle cx="256" cy="148" r="13" fill="white"/>
+  <circle cx="296" cy="148" r="9" fill="white" fill-opacity="0.45"/>
 
-  <!-- Header: month indicator dots -->
-  <circle cx="221" cy="152" r="9" fill="white" fill-opacity="0.45"/>
-  <circle cx="256" cy="152" r="11" fill="white"/>
-  <circle cx="291" cy="152" r="9" fill="white" fill-opacity="0.45"/>
+  <!-- 10 category dots: 5 × 2 grid -->
+  <circle cx="144" cy="260" r="21" fill="#0ea5e9"/>
+  <circle cx="204" cy="260" r="21" fill="#0ea5e9"/>
+  <circle cx="256" cy="260" r="21" fill="#0ea5e9"/>
+  <circle cx="308" cy="260" r="21" fill="#0ea5e9"/>
+  <circle cx="368" cy="260" r="21" fill="#0ea5e9"/>
 
-  <!-- Content: 10 category dots (5 × 2 grid) -->
-  <!-- Row 1 -->
-  <circle cx="142" cy="254" r="18" fill="#111827"/>
-  <circle cx="198" cy="254" r="18" fill="#111827"/>
-  <circle cx="256" cy="254" r="18" fill="#111827"/>
-  <circle cx="314" cy="254" r="18" fill="#111827"/>
-  <circle cx="370" cy="254" r="18" fill="#111827"/>
-
-  <!-- Row 2 (last dot faded = "this month not yet filled") -->
-  <circle cx="142" cy="322" r="18" fill="#111827"/>
-  <circle cx="198" cy="322" r="18" fill="#111827"/>
-  <circle cx="256" cy="322" r="18" fill="#111827"/>
-  <circle cx="314" cy="322" r="18" fill="#111827"/>
-  <circle cx="370" cy="322" r="18" fill="#111827" fill-opacity="0.18"/>
-
-  <!-- Bottom hint lines -->
-  <rect x="142" y="374" width="228" height="9" rx="4.5" fill="#111827" fill-opacity="0.15"/>
-  <rect x="142" y="392" width="152" height="9" rx="4.5" fill="#111827" fill-opacity="0.08"/>
+  <circle cx="144" cy="336" r="21" fill="#0ea5e9"/>
+  <circle cx="204" cy="336" r="21" fill="#0ea5e9"/>
+  <circle cx="256" cy="336" r="21" fill="#0ea5e9"/>
+  <circle cx="308" cy="336" r="21" fill="#0ea5e9"/>
+  <circle cx="368" cy="336" r="21" fill="#0ea5e9" fill-opacity="0.2"/>
 </svg>

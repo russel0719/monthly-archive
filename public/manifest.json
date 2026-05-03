@@ -4,8 +4,8 @@
   "description": "매달 10가지 카테고리로 남기는 나만의 아카이브",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#f9fafb",
-  "theme_color": "#111827",
+  "background_color": "#f0f2f6",
+  "theme_color": "#7dd3fc",
   "orientation": "portrait",
   "icons": [
     {
